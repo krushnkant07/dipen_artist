@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -234,7 +233,7 @@
     }
     .art-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.4; }
 
-    /* Skills - Only One Skill Card as requested */
+    /* Skills - Only One Skill Card */
     .single-skill {
       max-width: 500px;
       margin: 0 auto;
@@ -381,7 +380,7 @@
       </div>
       <div class="hero-image">
         <div class="hero-img-circle">
-          <img src="hero.jpeg" alt="Dipen Talpada Artist" onerror="this.src='https://placehold.co/400x400/2a2a35/c084fc?text=DIPEN+ART'; this.onerror=null;">
+          <img src="upload/hero.jpeg" alt="Dipen Talpada Artist" onerror="this.src='https://placehold.co/400x400/2a2a35/c084fc?text=DIPEN+ART'; this.onerror=null;">
         </div>
         <p style="margin-top: 16px;"><i class="fas fa-map-marker-alt"></i> Anand, Borsad · Gujarat, India</p>
       </div>
@@ -405,7 +404,7 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO GALLERY with image_1.jpeg to image_10.jpeg - NO PRICES SHOWN, only title + category + description -->
+  <!-- PORTFOLIO GALLERY with upload/image_1.jpeg to upload/image_10.jpeg -->
   <section id="works">
     <div class="container">
       <div class="section-title fade-up">✦ PORTFOLIO GALLERY ✦</div>
@@ -413,7 +412,7 @@
     </div>
   </section>
 
-  <!-- Pricing Section - Only Sketch Portrait Package as requested -->
+  <!-- Pricing Section - Only Sketch Portrait Package -->
   <section id="pricing">
     <div class="container">
       <div class="section-title fade-up">✦ COMMISSION PACKAGE ✦</div>
@@ -478,19 +477,19 @@
 </main>
 
 <script>
-  // ========== ARTWORK DATA: image_1.jpeg to image_10.jpeg ==========
-  // No prices shown in gallery, only title, category, description
+  // ========== ARTWORK DATA: upload/image_1.jpeg to upload/image_10.jpeg ==========
+  // All images are in the "upload" folder
   const artworksData = [
-    { file: "image_1.jpeg", title: "Eternal Soul", category: "Hyper-Realism", description: "Charcoal on paper | 12x16 inch" },
-    { file: "image_2.jpeg", title: "Abstract Flow", category: "Digital Illustration", description: "Digital painting | High resolution" },
-    { file: "image_3.jpeg", title: "Vintage Print", category: "Print Media", description: "Poster design | Limited edition" },
-    { file: "image_4.jpeg", title: "Brandmark Identity", category: "Branding", description: "Logo + brand system" },
-    { file: "image_5.jpeg", title: "Nocturnal Face", category: "Hyper-Realism", description: "Pencil sketch | Detailed shading" },
-    { file: "image_6.jpeg", title: "Social Storm", category: "Social Media", description: "Instagram carousel design" },
-    { file: "image_7.jpeg", title: "Divine Strokes", category: "Branding", description: "Complete visual identity" },
-    { file: "image_8.jpeg", title: "Mythos Illustration", category: "Illustration", description: "Vector + texture art" },
-    { file: "image_9.jpeg", title: "Print Editorial", category: "Print Media", description: "Magazine layout design" },
-    { file: "image_10.jpeg", title: "Soul Reflection", category: "Hyper-Realism", description: "Charcoal masterpiece | 16x20 inch" }
+    { file: "upload/image_1.jpeg", title: "Eternal Soul", category: "Hyper-Realism", description: "Charcoal on paper | 12x16 inch" },
+    { file: "upload/image_2.jpeg", title: "Abstract Flow", category: "Digital Illustration", description: "Digital painting | High resolution" },
+    { file: "upload/image_3.jpeg", title: "Vintage Print", category: "Print Media", description: "Poster design | Limited edition" },
+    { file: "upload/image_4.jpeg", title: "Brandmark Identity", category: "Branding", description: "Logo + brand system" },
+    { file: "upload/image_5.jpeg", title: "Nocturnal Face", category: "Hyper-Realism", description: "Pencil sketch | Detailed shading" },
+    { file: "upload/image_6.jpeg", title: "Social Storm", category: "Social Media", description: "Instagram carousel design" },
+    { file: "upload/image_7.jpeg", title: "Divine Strokes", category: "Branding", description: "Complete visual identity" },
+    { file: "upload/image_8.jpeg", title: "Mythos Illustration", category: "Illustration", description: "Vector + texture art" },
+    { file: "upload/image_9.jpeg", title: "Print Editorial", category: "Print Media", description: "Magazine layout design" },
+    { file: "upload/image_10.jpeg", title: "Soul Reflection", category: "Hyper-Realism", description: "Charcoal masterpiece | 16x20 inch" }
   ];
 
   const galleryContainer = document.getElementById('artGallery');
@@ -503,7 +502,7 @@
       
       card.innerHTML = `
         <div class="art-img">
-          <img src="${art.file}" alt="${art.title}" onerror="this.onerror=null; this.parentElement.style.background='linear-gradient(135deg, #2c1e2f, #1a0f20)'; this.style.display='none'; this.parentElement.innerHTML='<div style=\\'display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%;\\'><i class=\\'fas fa-image\\' style=\\'font-size:3rem; color:var(--accent); margin-bottom:10px;\\'></i><span style=\\'background:rgba(0,0,0,0.6); padding:4px 12px; border-radius:30px; font-size:0.7rem;\\'>📁 ${art.file}</span></div>'">
+          <img src="${art.file}" alt="${art.title}" loading="lazy">
         </div>
         <div class="art-info">
           <h4>${art.title}</h4>
@@ -512,10 +511,11 @@
         </div>
       `;
       
-      // Handle image loading errors gracefully
+      // Handle image loading errors gracefully - show fallback if image not found
       const img = card.querySelector('img');
       if(img) {
         img.onerror = function() {
+          this.onerror = null;
           const container = this.parentElement;
           container.style.background = 'linear-gradient(135deg, #2c1e2f, #1a0f20)';
           container.style.display = 'flex';
@@ -527,6 +527,7 @@
           fallbackDiv.style.alignItems = 'center';
           fallbackDiv.style.justifyContent = 'center';
           fallbackDiv.style.height = '100%';
+          fallbackDiv.style.width = '100%';
           fallbackDiv.innerHTML = `<i class="fas fa-image" style="font-size:3rem; color:var(--accent); margin-bottom:10px;"></i><span style="background:rgba(0,0,0,0.6); padding:4px 12px; border-radius:30px; font-size:0.7rem;">📁 ${art.file}</span>`;
           container.innerHTML = '';
           container.appendChild(fallbackDiv);
